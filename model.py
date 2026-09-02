@@ -147,8 +147,34 @@ def count_tokens(input_ids):
     # Goal: return the length of the input_ids sequence
     return len(input_ids)
 
-# Step 15 - build_training_arguments (not yet solved)
-# TODO: implement
+# Step 15 - build_training_arguments
+import torch
+import transformers
+
+def build_training_arguments(output_dir='./sft_out', max_steps=5, learning_rate=2e-4):
+    """Return featherweight TrainingArguments for the SFT run."""
+    # Goal: build TrainingArguments with batch size 1, given max_steps, given lr, bf16 or fp16.
+    
+    if torch.cuda.is_bf16_supported():
+        return transformers.TrainingArguments(
+            per_device_train_batch_size = 1,
+            gradient_accumulation_steps = 1,
+            max_steps = max_steps,
+            learning_rate = learning_rate,
+            output_dir = output_dir,
+            bf16 = True,
+            logging_steps = 1,
+            optim = 'adamw_8bit')
+
+    return transformers.TrainingArguments(
+            per_device_train_batch_size = 1,
+            gradient_accumulation_steps = 1,
+            max_steps = max_steps,
+            learning_rate = learning_rate,
+            output_dir = output_dir,
+            fp16 = True,
+            logging_steps = 1,
+            optim = 'adamw_8bit')
 
 # Step 16 - build_sft_trainer (not yet solved)
 # TODO: implement
