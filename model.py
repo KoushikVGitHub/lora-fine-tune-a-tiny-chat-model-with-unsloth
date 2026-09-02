@@ -57,9 +57,9 @@ def attach_lora_adapters(model, r=8, lora_alpha=16, target_modules=None):
     if target_modules is None:
         target_modules = get_lora_target_modules()
     
-    return unsloth.FastLanguageModel.get_peft_model(
+    return flm.get_peft_model(
         model,
-        r=r
+        r=r,
         target_modules = target_modules,
         lora_alpha=lora_alpha,
         lora_dropout=0,
