@@ -80,8 +80,38 @@ def trainable_fraction(trainable_count, total_count):
 
     return float(trainable_count / total_count)
 
-# Step 9 - build_instruction_examples (not yet solved)
-# TODO: implement
+# Step 9 - build_instruction_examples
+def build_instruction_examples():
+    """Return a small list of {'instruction', 'response'} dicts for SFT."""
+    # Goal: return a tiny hand-written list of instruction/response example dicts.
+    examples = [
+        {
+            "instruction": "What is the capital of Japan?",
+            "response": "The capital of Japan is Tokyo."
+        },
+        {
+            "instruction": "Write a Python function to reverse a string.",
+            "response": "def reverse_string(s):\n    return s[::-1]"
+        },
+        {
+            "instruction": "Write a haiku about a robot learning to love.",
+            "response": "Cold gears start to turn,\nA spark ignites in the wire,\nMetal finds a heart."
+        },
+        {
+            "instruction": "Calculate 15% of 80 and explain the steps.",
+            "response": "First, find 10% of 80, which is 8. Then, find 5% of 80, which is half of 8, so 4. Finally, add them together: 8 + 4 = 12. Therefore, 15% of 80 is 12."
+        },
+        {
+            "instruction": "Summarize the water cycle in three simple steps.",
+            "response": "1. Evaporation: Water turns into vapor and rises. 2. Condensation: Vapor cools and forms clouds. 3. Precipitation: Water falls back to earth as rain or snow."
+        },
+        {
+            "instruction": "Classify the word 'quickly' as a noun, verb, adjective, or adverb.",
+            "response": "The word 'quickly' is an adverb."
+        }
+    ]
+    
+    return examples
 
 # Step 10 - format_instruction_example (not yet solved)
 # TODO: implement
