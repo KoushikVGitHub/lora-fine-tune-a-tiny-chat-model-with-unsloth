@@ -72,8 +72,13 @@ def count_trainable_parameters(model):
     # Goal: sum p.numel() over model.parameters() where requires_grad is True
     return sum(param.numel() for param in model.parameters() if param.requires_grad)
 
-# Step 8 - trainable_fraction (not yet solved)
-# TODO: implement
+# Step 8 - trainable_fraction
+def trainable_fraction(trainable_count, total_count):
+    # Goal: return the fraction of parameters that are trainable.
+    if total_count == 0:
+        return 0.0
+
+    return float(trainable_count / total_count)
 
 # Step 9 - build_instruction_examples (not yet solved)
 # TODO: implement
