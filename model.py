@@ -210,8 +210,11 @@ def run_sft_training(trainer):
     
     return loss_logs[-1] if loss_logs else None
 
-# Step 18 - switch_to_inference_mode (not yet solved)
-# TODO: implement
+# Step 18 - switch_to_inference_mode
+def switch_to_inference_mode(model):
+    """Switch the LoRA-tuned model into Unsloth's fast inference mode and return it."""
+    # Goal: call the Unsloth helper that prepares the model for fast generation
+    return flm.for_inference(model)
 
 # Step 19 - build_chat_prompt (not yet solved)
 # TODO: implement
