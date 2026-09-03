@@ -236,6 +236,23 @@ def build_chat_prompt(tokenizer, instruction):
     
     return prompt_string
 
-# Step 20 - generate_reply (not yet solved)
-# TODO: implement
+# Step 20 - generate_reply
+def generate_reply(model, tokenizer, prompt, max_new_tokens=32):
+    """Greedy-generate a reply for `prompt` and return the decoded text."""
+    # Goal: tokenize prompt, run model.generate with do_sample=False, decode new tokens only
+    
+    # 1. Tokenize and move inputs to the model's device
+    inputs = tokenizer(prompt, return_tensors = 'pt' ).to(model.device) # Shape: (1, T)
+
+    # 2. Generate token IDs (passing the tokenized inputs, not the string)
+    output_ids = model.generate(
+        **inputs, 
+        max_new_tokens=max_new_tokens, 
+        do_sample=False)
+
+    # 3. Slice the output tensor to isolate only the newly generated tokens
+    input_length = inputs["input_ids"].shape[1]
+    new_token_ids = output_ids[0,input_length:]
+
+    return tokenizer.decode(new_token_ids, skip_special_tokens=True)
 
