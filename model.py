@@ -193,8 +193,22 @@ def build_sft_trainer(model, tokenizer, dataset, training_args, max_seq_length=2
         packing = True
     )
 
-# Step 17 - run_sft_training (not yet solved)
-# TODO: implement
+# Step 17 - run_sft_training
+def run_sft_training(trainer):
+    """Run a few SFT steps and return the final training loss as a float."""
+    # Goal: drive the trainer through its short optimization run and return the final loss
+    # Disable checkpoint saving to prevent the SFTConfig pickling error
+    trainer.args.save_strategy = "no"
+    trainer.args.save_steps = 0
+    
+    output = trainer.train()
+
+    log_history = trainer.state.log_history
+
+    # Filter for entries that actually contain training loss (ignoring epoch summaries)
+    loss_logs = [log['loss'] for log in log_history if 'loss' in log]
+    
+    return loss_logs[-1] if loss_logs else None
 
 # Step 18 - switch_to_inference_mode (not yet solved)
 # TODO: implement
